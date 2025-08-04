@@ -2,7 +2,7 @@
 ESP8266 Async WiFi Connection manager with fallback web configuration portal
 
 > [!NOTE]
-> This version is forked form the original to try and fix issues with the ESP32C3. The [filter functions](https://github.com/alanswx/ESPAsyncWiFiManager/blob/master/src/ESPAsyncWiFiManager.cpp#L168) always seem to return false on the C3 for some reason. A custom version of that filter is used in this library, and no other changes have been made. __This is a quick and dirty fix and may have other consequences that haven't been discovered yet.__
+> This version is forked form the original to try and fix issues with the ESP32C3. The [filter functions](https://github.com/alanswx/ESPAsyncWiFiManager/blob/master/src/ESPAsyncWiFiManager.cpp#L168) always seem to return false on the C3 for some reason. A custom version of that filter is used in this library, and no other changes have been made. This should still work with all the other ESP32/8266 devices the original library worked with. __This is a quick and dirty fix and may have other consequences that haven't been discovered yet.__
 
 The configuration portal is of the captive variety, so on various devices it will present the configuration dialogue as soon as you connect to the created access point.
 
