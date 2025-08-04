@@ -165,25 +165,39 @@ void AsyncWiFiManager::setupConfigPortal()
   // setup web pages: root, wifi config pages, SO captive portal detectors and not found
   server->on("/",
              std::bind(&AsyncWiFiManager::handleRoot, this, std::placeholders::_1))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/wifi",
              std::bind(&AsyncWiFiManager::handleWifi, this, std::placeholders::_1, true))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/0wifi",
              std::bind(&AsyncWiFiManager::handleWifi, this, std::placeholders::_1, false))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/wifisave",
              std::bind(&AsyncWiFiManager::handleWifiSave, this, std::placeholders::_1))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/i",
              std::bind(&AsyncWiFiManager::handleInfo, this, std::placeholders::_1))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/r",
              std::bind(&AsyncWiFiManager::handleReset, this, std::placeholders::_1))
-      .setFilter(ON_AP_FILTER);
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      });
   server->on("/fwlink",
              std::bind(&AsyncWiFiManager::handleRoot, this, std::placeholders::_1))
-      .setFilter(ON_AP_FILTER); // Microsoft captive portal. Maybe not needed. Might be handled by notFound handler.
+       .setFilter([this](AsyncWebServerRequest *request)->bool{
+        return WiFi.localIP() != request->client()->localIP();
+      }); // Microsoft captive portal. Maybe not needed. Might be handled by notFound handler.
   server->onNotFound(std::bind(&AsyncWiFiManager::handleNotFound, this, std::placeholders::_1));
   server->begin(); // web server start
   DEBUG_WM(F("HTTP server started"));
